@@ -46,14 +46,21 @@ services:
     networks:
       - cake
 
-  node:
-    build:
-      context: .
-      dockerfile: Dockerfile-node
-    ports:
-      - "8088:80"
-    container_name: node
+  npm:
+    image: node:14.15.4
+    container_name: npm
     volumes:
       - ./:/var/www/html
+    working_dir: /var/www/html
+    entrypoint: ['npm']
+    networks:
+      - cake
+
+  composer:
+    image: composer:latest
+    container_name: composer
+    volumes:
+      - ./:/var/www/html
+    working_dir: /var/www/hml
     networks:
       - cake
