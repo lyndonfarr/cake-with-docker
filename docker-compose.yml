@@ -64,3 +64,19 @@ services:
     working_dir: /var/www/hml
     networks:
       - cake
+
+  bake:
+    build:
+      context: .
+      dockerfile: Dockerfile-php
+      args:
+        - PHP_VERSION=php:7.2-fpm
+    container_name: bake
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysql
+    working_dir: /var/www/html
+    entrypoint: ['/var/www/html/bin/cake', 'bake']
+    networks:
+      - cake
