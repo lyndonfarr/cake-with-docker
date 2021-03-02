@@ -2,6 +2,7 @@ version: '3'
 
 networks:
   cake:
+    driver: bridge
 
 services:
 
@@ -37,7 +38,7 @@ services:
     ports:
       - "4306:3306"
     volumes:
-      - ./mysql:/var/lib/mysql
+      - db-data:/var/lib/mysql
     env_file: ./config/.env
     networks:
       - cake
@@ -90,3 +91,7 @@ services:
 #    entrypoint: ['/var/www/html/bin/cake', 'bake']
 #    networks:
 #      - cake
+
+volumes:
+  db-data:
+    driver: local
